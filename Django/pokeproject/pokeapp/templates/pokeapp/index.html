@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+  <title>Pokedex</title>
+</head>
+
+<body>
+  <div class="container mt-3">
+    <div class="row justify-content-md-center">
+      <div class="col-md-auto">
+        {% for pokemon in page_obj %}
+        <div class="card" style="width: 18rem;">
+          <img src="{{ pokemon.image_front}}" class="card-img-top" alt="...">
+          <hr>
+          <img src="{{ pokemon.image_back}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ pokemon.name}}</h5>
+            <p class="card-text">
+            <p><strong>Weight: </strong>{{pokemon.weight}}</p>
+            <p><strong>Height: </strong>{{pokemon.height}}</p>
+            <p><strong>Type(s): </strong>{{pokemon.types}}</p>
+            </p>
+            <a href="{{ pokemon.url }}" class="btn btn-primary" target="_blank">Link to wiki</a>
+          </div>
+        </div>
+        <br>
+        {% endfor %}
+      </div>
+      <div class="pagination">
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+          <span class="current">
+            Page {{ page_obj.number}} of {{ page_obj.paginator.num_pages }}
+          </span>
+
+          {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  
+  <
+
+
+
+
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

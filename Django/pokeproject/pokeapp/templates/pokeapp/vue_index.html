@@ -1,0 +1,150 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'pokeapp/style.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Pokedex_vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="sticky-top">
+                <h1 class=" mr-6 ">Pokedex!!!</h1>
+                <div class="mb-3 ml-6" id="search_area">
+
+                    <input  type="text" v-model="search_text" placeholder="search by name and type"
+                        class="form-control" id="search" />
+
+                </div>
+                <div id="submit_btn">
+                    <button type="submit" class="btn btn-primary mb-3 mr-3" v-on:click="vue_index">Search</button>
+                    <button class="btn btn-outline-secondary mb-3 mr-3" v-if="search_text != ''"
+                        v-on:click="search_text ='';vue_index()">Clear Search</button>
+                </div>
+            </div>
+            <div class="row justify-content-md-center">
+                
+                <div class="justify-content-center d-flex flex-wrap">
+
+
+
+                    <div class="my-3 mx-1" id="card" v-for="pokemon in pokemons" style="width: 18rem;">
+                        <img v-bind:src="[[pokemon.image_front]]" class="card-img-top" alt="...">
+                        <hr>
+                        <img v-bind:src="[[pokemon.image_back]]" class="card-img-top" alt="...">
+                        <div class="card-body">
+
+                            <hr>
+                            <h5 class="card-title">[[pokemon.name]]</h5>
+                            <p class="card-text">
+                            <h6>Height</h6>[[pokemon.height]]
+                            <br>
+                            <h6>Weight</h6> [[pokemon.weight]]
+                            <br>
+                            <h6>Type(s)</h6> [[pokemon.type]]
+                            </p>
+                            <a v-bind:href="[[pokemon.url]]" target="_blank" class="btn btn-primary">The Wiki</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <nav class="mt-3">
+                        <ul class="pagination pagination-sm justify-content-left">
+                            <li class="page-item"><a v-on:click="previous_page" class="page-link" href="#">Previous</a>
+                            </li>
+                            <a v-on:click="set_page(page)" v-for="page in num_pages"
+                                v-bind:class="{ highlight_page: page == current_page }" class="page-link"
+                                href="#">[[page]]</a>
+                            <li class="page-item"><a v-on:click="next_page(page)" class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        // Vue
+        let app = new Vue({
+            el: '#app',
+            delimiters: ['[[', ']]'],
+            data: {
+                image: "https://unsplash.com/photos/TWCnHKKhqSo",
+                message: 'hello world',
+                current_page: 1,
+                pokemons: [],
+                num_pages: 1,
+                search_text: '',
+                types: [],
+            },
+            methods: {
+                // loads the pokemon in the webpage from database
+                vue_index: function () {
+                    axios({
+                        url: "{% url 'pokeapp:load_vue_pokemon' %}",
+                        method: 'get',
+                        params: {
+                            page: this.current_page,
+                            search: this.search_text
+                        }
+
+                    }).then(response => {
+                        this.pokemons = response.data.list_pokemon
+                        this.num_pages = response.data.num_pages
+                    })
+                },
+                // pagination controls below
+                previous_page: function () {
+                    if (this.current_page > 1) {
+                        this.current_page -= 1
+                        this.vue_index()
+                    }
+                },
+                set_page: function (page) {
+                    this.current_page = page,
+                        this.vue_index()
+                },
+                next_page: function (page) {
+                    if (this.current_page < this.num_pages) {
+                        this.current_page += 1
+                        this.vue_index()
+                    }
+                },
+            },
+            // loading pokemon function from line94 "vue_index" is ran on lifecycle
+            created: function () {
+                this.vue_index()
+            }
+        })
+
+    </script>
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

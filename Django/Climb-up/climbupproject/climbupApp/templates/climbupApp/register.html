@@ -1,0 +1,22 @@
+{% extends 'climbupApp/base.html'%}
+<!-- loading stying and navbar from base & using crispy forms for standardized login info -->
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container content-section" id="registration">
+    <form action='{% url "climbupApp:register"%}' method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">join today</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">sign up</button>
+        </div>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account? <a href="{% url 'climbupApp:login_page' %}" class="ml-2"> Sign in</a>
+        </small>
+    </div>
+</div>
+{%endblock content%}

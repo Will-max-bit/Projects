@@ -1,0 +1,220 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'roseTattoApp/css/styling.css'%}">
+    <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Home page</title>
+    <style>
+        #foot{
+            /* background-color: #383838; */
+            color: #c7ceda;
+            border: black;
+        }
+        body{
+            background-color: rgb(75, 74, 74);
+        }
+        p, li, h4, h1{
+            color: white;
+        }
+        .card-text{
+            color: black;
+        }
+        #mainview{
+
+            box-shadow: 0 -8px 6px -6px black;
+        }
+        #first_para{
+            font-family: 'Dancing Script', cursive;
+        }
+        .card-text {
+      color: black !important;
+      font-size: smaller;
+      font-family: 'Playball', cursive;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        
+        <nav style="transition: top 0.3s;" class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand navbar" href="{% url 'roseTattoApp:index'%}"><img
+                        src="{% static 'roseTattoApp/logo.jpg' %}" width="30" height="30" alt="..."></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                                href="{% url 'roseTattoApp:artists_page'%}">Artists</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="#">General Shop FAQs</a>
+                            
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'roseTattoApp:contact_us'%}">Contact us</a>
+                        </li>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="mainview">
+
+        <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'roseTattoApp/Tattoo1.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'roseTattoApp/tattoo2.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'roseTattoApp/tattoo3.jpg' %}" class="d-block w-100" alt="...">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <div class="container mt-100">
+        <p class=" text-center" id="first_para">Semiotics biodiesel PBR&B crucifix chia bushwick ennui polaroid. Air plant
+            tofu beard fam. Hammock
+            microdosing YOLO VHS meggings, venmo whatever kinfolk lumbersexual semiotics trust fund hella kale chips
+            polaroid echo park. Asymmetrical cray ethical, man bun sriracha gluten-free stumptown gastropub. Chambray
+            trust fund banh mi lumbersexual, brunch four dollar toast polaroid hammock chicharrones enamel pin activated
+            charcoal retro. Hammock taxidermy irony tacos YOLO 90's +1 chambray la croix lo-fi coloring book raclette
+            vape</p>
+        <p class="font-italic text-center" id="first_para">Pinterest live-edge irony pug four dollar toast. Sustainable drinking vinegar
+            +1 single-origin coffee ugh everyday carry humblebrag selfies asymmetrical irony chia stumptown try-hard
+            biodiesel tumeric. Echo park selvage godard hell of asymmetrical kitsch unicorn banh mi kogi sriracha.
+            Iceland snackwave meh marfa keytar jianbing blue</p>
+        <p class="text-muted text-center">To book with an artist, please read the booking info page<button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    here
+  </button> and email an artist
+            directly for all tattoo inquiries. </p>
+    </div>
+    <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">booking info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Due to the custom nature of our shop, we do not have an admin or office manager who books appointments. Each artist accepts work at different volumes. While some take emails year round, several of our artists only open their books to requests for work in a specific time window every few months, in order to condense their correspondence times. Each artist has details of how they accept inquiries on their artist page. 
+
+            If the artist’s page that you are interested in says “books are closed”, that means that you cannot request an appointment now, and will have to wait for the next time window when that artist is booking. If you are interested in an artist whose books are currently closed, we recommend following them on social media through the links on their artist page to be notified exactly when their books open. 
+            
+            Our artists schedule their own consultations and appointments personally, so contacting them as is outlined on their artist’s page is the only way they can be reached. If you are not particular about which tattoo artist does your work, and do not want to wait for our artist’s books to open, we suggest visiting any of the other tattoo shops in the area, as nearly all of them take walk-ins and are of good quality.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+    <hr>
+    <div class="container-fluid">
+        <h1><strong>News</strong></h1>
+        <H4>New Covid-19 guidelines in place include:</H4>
+        <ul>
+            <li class="font-weight-bold">Vice bitters XOXO offal shoreditch iceland</li>
+            <li class="font-weight-bold">Chicharrones cliche small batch, echo park affogato fam austin</li>
+            <li class="font-weight-bold">Chillwave bicycle rights VHS selvage plaid jean shorts forage.</li>
+            <li class="font-weight-bold">Paleo fanny pack drinking vinegar air plant, green juice wayfarers iceland</li>
+            <li class="font-weight-bold">Tilde asymmetrical put a bird on it, blog fixie sartorial food truck succulents
+                squid pork belly banjo whatever roof party kogi.</li>
+        </ul>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="d-flex justify-content-evenly">
+                <div class="card" style="width: 40%; ">
+                    <img src="{%static 'roseTattoApp/card1.jpg'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">About Us</h5>
+                        <p class="card-text">Cornhole iceland succulents, cliche you probably haven't heard of them hell
+                            of single-origin coffee poke.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 40%;">
+                    <img src="{%static 'roseTattoApp/card2.jpg'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Our Shop</h5>
+                        <p class="card-text">Vape marfa taiyaki fingerstache twee pug pabst. </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 40%;">
+                    <img src="{%static 'roseTattoApp/card3.jpg'%}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Our Values</h5>
+                        <p class="card-text">Af kogi brunch pour-over knausgaard seitan selvage marfa. Ugh tacos DIY,
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <footer class="container" id="foot">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-instagram" viewBox="0 0 16 16">
+                    <path
+                        d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                </svg>
+                <p class="text-center">Food truck venmo cray austin tacos fanny pack taiyaki ugh +1.
+                    Humblebrag echo park gentrify, kogi taxidermy health goth ramps tumeric sriracha</p>
+            </div> 
+            
+        </div>
+        <div class="row">
+            <div class="col text-center text_foot">
+        <a href="mailto:something@something.com"><button type="button" class="btn btn-dark"> email the
+                        shop</button></a>
+                    </div>
+                </div>
+        <p class="text-center text_foot"><small>Brunch squid glossier bushwick iPhone narwhal. Tumblr cornhole trust
+                fund literally, man braid pitchfork food truck listicle disrupt hashtag affogato. Letterpress lyft you
+                probably haven't heard of them succulents mlkshk. Waistcoat chicharrones lomo, helvetica offal scenester
+                cornhole synth air plant put a bird on it cronut vaporware taiyaki retro mixtape.</small></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

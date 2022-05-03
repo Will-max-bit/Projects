@@ -1,0 +1,196 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fira+Mono&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dorsa&family=Raleway:wght@100&display=swap" rel="stylesheet">
+    <title>Contact Us</title>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChiJu7qYaE4UOfKu2t95xpD6mKJkSJKnk&callback=initMap&libraries=&v=weekly"
+        async></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+    <style type="text/css">
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+
+        .main_para {
+            font-family: 'Dancing Script', cursive;
+
+        }
+
+        .warning_txt {
+            font-family: 'Fira Mono', monospace;
+            font-size: small;
+        }
+    </style>
+    <style>
+        footer {
+            /* background-color: #a1a1a1; */
+            color: #c7ceda;
+            border: black;
+            font-size: smaller;
+        }
+
+        body {
+            background-color: rgb(75, 74, 74);
+        }
+
+        p,
+        li,
+        h4,
+        h1 {
+            color: white;
+        }
+
+        .card-text {
+            color: black;
+        }
+
+        #contact_image {
+            box-shadow: 0 -8px 6px -6px black;
+        }
+    </style>
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            const uluru = { lat: 44.052, lng: -123.086 };
+            // The map, centered at Uluru
+            
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: uluru,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent sticky-top">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'roseTattoApp:index'%}"><img
+                            src="{% static 'roseTattoApp/logo.jpg' %}" width="30" height="30" alt="..."></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                    href="{% url 'roseTattoApp:artists_page'%}">Artists</a>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="#">General Shop FAQs</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'roseTattoApp:contact_us'%}">Contact us</a>
+                            </li>
+                        </ul>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+        </nav>
+    </header>
+    <img id="contact_image" src="{% static 'roseTattoApp/artistbackgroun1.jpg' %}" class="img-fluid mb-1" alt="">
+    <div class="container my-2">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto text-center">
+                <p class="text-center">
+
+                </p>
+                <h4 class="main_para text-center">
+                    To book with an artist, please read our <str><a href="{% url 'roseTattoApp:artists_page'%}"></a>
+                        BOOKING
+                        INFO</str> Thoroughly and contact an artist through the info on their artist page.
+                </h4>
+                <h4 class="main_para text-center">
+                    For general questions about our shop, please read our FAQ page first, and use contact form below to
+                    inquire with the shop if your question is not answered on there.
+                </h4>
+                <p class="warning_txt text-center"> <small>
+                        ATTENTION: DUE TO THE LARGE VOLUME OF EMAIL INQUIRIES, WE ARE CURRENTLY UNABLE TO RESPOND TO ANY
+                        EMAIL
+                        QUESTIONS THAT ARE ANSWERED ON OUR FAQ or BOOKING INFO PAGE. IF YOU SEND QUESTIONS/INQUIRIES
+                        ANSWERED ON
+                        EITHER PAGE, YOU WILL NOT RECEIVE A REPLY.
+                    </small></p>
+                <!-- <div class="d-flex align-items-center"> -->
+                <a href="mailto:something@something.com"><button type="button" class="btn btn-dark"> email the
+                        shop</button></a>
+            </div> <!-- </div> -->
+        </div>
+    </div>
+    <div id="map"></div>
+    <footer>
+        <hr>
+        <div class="row mt-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+            </svg>
+            <p class="text-muted text-center">Food truck venmo cray austin tacos fanny pack taiyaki ugh +1. Humblebrag
+                echo park gentrify, kogi taxidermy health goth ramps tumeric sriracha</p>
+        </div>
+        <p class="text-muted text-center">Brunch squid glossier bushwick iPhone narwhal. Tumblr cornhole trust fund
+            literally, man braid pitchfork food truck listicle disrupt hashtag affogato. Letterpress lyft you probably
+            haven't heard of them succulents mlkshk. Waistcoat chicharrones lomo, helvetica offal scenester cornhole
+            synth air plant put a bird on it cronut vaporware taiyaki retro mixtape.</p>
+    </footer>
+    <div id="modalPop" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" style="overflow-y: initial;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"><span>MODAL</span></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="max-height: calc(100vh - 200px); overflow-y: auto;">
+                    This is a modal window.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAld2N8f7j7bO1qoQLxStj5fhqrTn9dyLs&callback=initMap&libraries=&v=weekly"
+        async></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>

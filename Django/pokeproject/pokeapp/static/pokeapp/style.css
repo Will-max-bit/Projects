@@ -1,0 +1,42 @@
+h1{
+    display: flex;
+    justify-content: center;
+    font-family: 'DotGothic16', sans-serif;
+    font-weight: bolder;
+    background-color: rgb(76, 97, 194);
+    border-radius: 30px;
+}
+#search_area{
+    display: flex;
+    justify-content: center;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+#submit_btn{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+#app{
+    background-image: url(./pokeapp.png);
+    background-color: crimson;
+    background-size: cover !important;
+}
+:-moz-placeholder { /* Firefox 18- */
+    text-align: center;  
+ }
+
+#card{
+    border: 4px solid goldenrod;
+    background-color: rgb(255, 239, 146);
+    box-shadow: 0 0 15px rgb(48, 47, 47);
+}
+h5{
+    font-family: 'Sigmar One', cursive;
+}
+details{
+    font-weight: bold;
+}
+img{
+    box-shadow: 0 0 10px #fff;
+}

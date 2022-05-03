@@ -1,0 +1,42 @@
+#background_image{
+    background-image: url('./images/christie-greene-FzOidLFJN-w-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+h1{
+    display: flex;
+    justify-content: center;
+    font-family: 'Kaushan Script', cursive;
+    text-align: center;
+    background-color: rgb(219, 218, 215);
+}
+#top_bar{
+    display: flex;
+    /* justify-content: space-evenly; */
+    /* color: blue; */
+}
+#card{
+    background-color: rgb(219, 218, 215);
+    min-width: 200px;
+    border: solid black 1px;
+    border-radius: 5px;
+}
+
+.content-section .form_label{
+    background-color: rgb(219, 218, 215);
+    border-radius: 5px;
+}
+.card-title{
+    font-family: 'Architects Daughter', cursive;
+}
+button{
+    box-shadow:  0px 0px 5px rgb(29, 29, 29);
+}
+#registration{
+    background-color: rgb(219, 218, 215);
+    border-radius: 5px;
+}
+.accordion-body{
+    background-color: rgb(184, 184, 184);
+    text-align: center;
+}

@@ -1,0 +1,148 @@
+{% extends 'climbupApp/base.html'%}
+<!-- loading stying and navbar from base & using crispy forms for standardized login info -->
+{% block content %}
+
+<div id="app" class="container ">
+    <!-- Modal for editing post-->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Edit Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+          <input type="title" class="form-control" v-model="editing_post.title" id="edit_post_form" placeholder="What's happening?">
+            <textarea class="form-control" v-model="editing_post.text" id="post_edit" rows="3"></textarea>
+            <input class="form-control form-control-sm" id="post_image" type="file" accept="image/*" />
+            <input type="date" class="form-control" id="scheduled_date" v-model="editing_post.scheduled_date">
+            <select class="form-select form-select-sm" v-model="editing_post.city_id" aria-label=".form-select-sm example">
+            <option selected>Select a City</option>
+            <option v-for="city in cities" v-bind:value="city.id">[[city.name]]</option>
+            </select>
+            <button type="button" data-bs-dismiss="modal" v-on:click="post_edit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- beginning of user's profile posts  -->
+    <h1 class="text-center" >Your Profile</h1>
+    <div class="container m-o my-1" id="card" v-for="post in profile_posts" style="width: 100%;">
+        <img v-bind:src="[[post.post_image]]" id="post_image" class="card-img-top" alt="...">
+        <div class="card-body">
+            <div>Author- [[post.author]]</div>
+            <div>Location- [[post.city]]</div>
+            <div>posted- [[post.created_date]]</div>
+            <hr>
+            <h5 class="card-title">[[post.title]]</h5>
+            <p class="card-text">
+                [[post.text]]
+                [[post.id]]
+            </p>
+        </div>
+        <!-- if user is logged in the ability to edit posts is rendered -->
+      {% if user.is_authenticated %}
+      <div class="d-flex justify-content-evenly">
+            <button type="button" class="btn btn-primary mb-1" v-on:click="editing_post = {...post}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Edit post
+          </button>
+          <button type="button" class="btn btn-danger mb-1" v-on:click="delete_item(post)"  >
+            Delete post
+          </button>
+          </div>
+        {% endif %}
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {
+            profile_posts: [],
+            message: 'Profile page',
+            modal: null,
+            text: '',
+            attendees: '',
+            editing_post: {'author': '', 'title': '', 'text': '', 'cities': '', 'scheduled_date': '','id': '', },
+            author: '',
+            title: '',
+            likes: '',
+            created_date: '',
+            cities: '',
+            city_add: '',
+            city_id: '',
+            scheduled_date: '',
+        },
+        methods: {
+          // function for rendering posts of user
+            postIndex: function () {
+                axios({
+                    url: "{% url 'climbupApp:profile_load' %}",
+                    method: 'get',
+                }).then(response => {
+                    this.profile_posts = response.data.profile_posts
+                    this.getCities()
+                })
+            },
+            post_edit: function(){
+              // collecting data from edited post for saving to database
+              let form_data = new FormData()
+              let post_image = document.querySelector('#post_image')
+              form_data.append('post_image', post_image.files[0])
+              form_data.append('text', this.editing_post.text)
+              form_data.append('post_id', this.editing_post.id)
+              form_data.append('author', this.editing_post.author)
+              form_data.append('title', this.editing_post.title)
+              form_data.append('city_id', this.editing_post.city_id)
+              form_data.append('scheduled_date', this.editing_post.scheduled_date)
+              axios({
+                url: "{% url 'climbupApp:post_edit' %}",
+                method: "post",
+                data: form_data,
+                headers: {
+                  "X-CSRFToken": "{{ csrf_token }}"
+                }
+              }).then(response => {
+                console.log(form_data)
+                this.postIndex()
+              })
+            },
+            getCities: function () {
+              // city function allows the user to edit the city of their post
+                axios({
+                    url: "{% url 'climbupApp:get_cities' %}",
+                    method: 'get',
+                }).then(response => {
+                    this.cities = response.data.cities
+                })
+            },
+            delete_item: function(post){
+              // collects the relevant post data, sends back to the database for deletion
+              let form_data = new FormData()
+              form_data.append('post_id', post.id)
+              axios({
+                url: "{% url 'climbupApp:delete_post' %}",
+                method: 'post',
+                data: form_data,
+                headers: {
+                  "X-CSRFToken": "{{ csrf_token }}"
+                }
+              }).then(response => {
+                this.postIndex()
+                console.log(response.data)
+              })
+            }
+        },
+        created: function () {
+            this.postIndex()
+            this.modal = new bootstrap.Modal(document.querySelector('.modal'), {})
+        }
+    })
+</script>
+{% endblock %}

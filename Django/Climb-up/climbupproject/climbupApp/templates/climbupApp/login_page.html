@@ -1,0 +1,29 @@
+{% extends 'climbupApp/base.html'%}  
+<!-- loading stying and navbar from base & using crispy forms for standardized login info -->
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="text-center mb-1" id="registration"> Log in below </div>
+<div id="registration">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="username" class="form-label">username</label>
+      <input type="username" name="username" class="form-control" id="username1">
+    </div>
+    <!-- displays an error or success message depending on user input -->
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="Password1">
+    </div>
+    <button type="submit" class="btn btn-primary">Sign In</button>
+  </form>
+</div>
+{% endblock %}

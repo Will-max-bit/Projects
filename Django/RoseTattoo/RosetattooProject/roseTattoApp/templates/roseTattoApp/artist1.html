@@ -1,0 +1,162 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Artist1</title>
+    <style>
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        body {
+            /* background-image: url('/roseTattoApp/static/roseTattoApp/artist_background.jpg'); */
+            background-color: rgb(75, 74, 74);
+        }
+        p{
+            color: rgb(240, 237, 233);
+        }
+    </style>
+</head>
+
+<body>
+    <nav style="transition: top 0.3s;" class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <div class="container-fluid">
+            <a class="navbar-brand navbar" href="{% url 'roseTattoApp:index'%}"><img
+                    src="{% static 'roseTattoApp/logo.jpg' %}" width="30" height="30" alt="..."></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{% url 'roseTattoApp:artists_page'%}">Artists</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="#">General Shop FAQs</a>
+                        
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'roseTattoApp:contact_us'%}">Contact us</a>
+                    </li>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <img src="{% static 'roseTattoApp/artistbackgroun1.jpg' %}" class="img-fluid mb-1" alt="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col align-self-start">
+                <div class="card mt-10" style="width: 18rem; border:none;">
+                    <img src="{% static 'roseTattoApp/artpf1.jpg' %}" class="card-img-top" alt="...">
+                </div>
+
+
+            </div>
+            <div class="col align-self-end">
+                <p class="text-center fs-6 ">Dia Moeller, tattooing since 2010. Specializing in color and black and
+                    grey realism, with a darker, Victorian, painterly look. Dia creatively combines portraits,
+                    botanicals, animals, and the macabre and occult into a truly unique style.</p>
+                <h1 class="text-center">How to book with Dia:</h1>
+                <p>
+                    Artists's bookings are currently closed, but she accepts new inquiries in batches every 2-3 months.
+                    To see announcements on when him next booking period is, follow him on Instagram at <a style="color: black !important;"
+                        target="_blank" href="https://www.instagram.com/">tattoos</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <button type="button" onclick="resetImg('.img-thumbnail')" class="btn btn-outline-dark">Close</button>
+        </div>
+        <hr>
+    </div>
+    <div class="container" id="app">
+        <div class="row">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int1.jpg'%}" id="img1" onclick="enLargeImg(this)"
+                class="img-thumbnail" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int3.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int2.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int4.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int5.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int6.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int7.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int8.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int9.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int10.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int11.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+            <img class="mx-2 my-2" src="{% static 'roseTattoApp/int12.jpg'%}" class="img-thumbnail"
+                onclick="enLargeImg(this)" style="width: 200px; height: 200px; border:none;" alt="">
+        </div>
+    </div>
+    <footer>
+        <hr>
+        <hr>
+        <div class="row">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+            </svg>
+            <p class="text-muted text-center">Food truck venmo cray austin tacos fanny pack taiyaki ugh +1. Humblebrag
+                echo park gentrify, kogi taxidermy health goth ramps tumeric sriracha</p>
+        </div>
+        <p class="text-muted text-center">Brunch squid glossier bushwick iPhone narwhal. Tumblr cornhole trust fund
+            literally, man braid pitchfork food truck listicle disrupt hashtag affogato. Letterpress lyft you probably
+            haven't heard of them succulents mlkshk. Waistcoat chicharrones lomo, helvetica offal scenester cornhole
+            synth air plant put a bird on it cronut vaporware taiyaki retro mixtape.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+        </script>
+    <script src="https://unpkg.com/@diracleo/vue-enlargeable-image/dist/vue-enlargeable-image.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        img = document.getElementById("img1")
+        imgthumbnail = document.querySelectorAll('.img-thumbnail')
+        function enLargeImg(img) {
+
+            // imgthumbnail.forEach(img => {
+            img.style.transform = "scale(1.5)";
+            img.style.transistion = "transform 0.25s ease";
+
+            // });
+        }
+        function resetImg() {
+            imgthumbnail.forEach(img => {
+                img.style.transform = "scale(1)";
+                img.style.transistion = "transform 0.25s ease"
+
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>
