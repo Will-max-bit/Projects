@@ -4,8 +4,11 @@ This is an open source project from [DevProjects](http://www.codementor.io/proje
 Find the project requirements here: [RSS feed reader website](https://www.codementor.io/projects/web/rss-feed-reader-website-atx32j280x)
 
 ## Tech/framework used
-PHP
-Bootstrap
+<ul>
+<li>PHP</li>
+<li>Bootstrap</li>
+</ul>
+
 
 ## Screenshots and demo
 ![Alt text](/RSS_Project/images/Screenshot.JPG?raw=true "Demo Screenshot")
