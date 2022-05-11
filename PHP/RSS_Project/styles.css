@@ -1,0 +1,29 @@
+h1{
+    font-family: 'Fredoka One', cursive;
+}
+h5{
+    font-family: 'IBM Plex Mono', monospace;
+}
+p{
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2 {
+    color: #A6A6A6;
+}
+p, h5{
+    color: #0D0D0D
+}
+body{
+     background-color: #0D0D0D; 
+}
+a{
+    color: #BF9663;
+}
+.card{
+    min-height: 20rem;
+    background-color: #F2F2F2;
+}
+.btn-primary{
+    background-color: #BF9663;
+}
+

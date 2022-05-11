@@ -12,7 +12,6 @@ function rSS($url)
 
     $a = new SimpleXMLElement($content);
     $buildRSS = simplexml_load_file($url);
-    $domainName = parse_url($url);
     $result = array();
     foreach ($buildRSS->channel->item as $item) {
 
@@ -27,8 +26,7 @@ function rSS($url)
             'description' =>  $description,
             'time' => $dateOnly . ' ' . $time,
         );
-    };
-    ;
+    };;
     return $result;
 }
 
@@ -39,7 +37,11 @@ function rSS($url)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=IBM+Plex+Mono:wght@200&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
@@ -47,16 +49,20 @@ function rSS($url)
 </head>
 
 <body>
-    <h1>Rss Feeder</h1>
+    <h1 class="text-center">RSS Feeder</h1>
     <div class="container">
         <form action="index.php" method="post">
             <div class="form-group">
                 <label for="url"></label>
-                <input type="text" class="form-control" name="rssurl" placeholder="Enter the url you want RSS from">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <input type="text" class="form-control" name="rssurl" placeholder="Enter the url you want RSS from">
+                    </div>
+                </div>
                 </label>
             </div>
             <div class="row my-1 ">
-                <div class="d-grid gap-2 col-6 mx-auto text-center">
+                <div class="d-grid gap-2 col-4 mx-auto text-center">
                     <input type="submit" class=" btn btn-primary" value="submit" name="submit">
                 </div>
             </div>
@@ -64,33 +70,33 @@ function rSS($url)
 
         <div class="content container-fluid">
             <div class="row justify-content-center align-items-center">
-    
+
                 <!-- <div class="col-sm text-center"> -->
                 <?php if (isset($_POST['submit'])) {
-                    echo '<h1 class="text-center">' . domain($_POST['rssurl']) . '</h1>';
+                    echo '<h2 class="text-center">'. 'Fed from ' . '<strong>'. domain($_POST['rssurl']). '</strong>' . '</h2>';
                     $result = rss($_POST['rssurl']);
-    
+
                     foreach ($result as $results) {
                         echo '<div class=col>';
                         echo '<div class="card mx-1 my-1" style="width: 18rem; ">';
                         echo '<div class="card-body">';
-                        echo '<h5 class="card-title" style="font-size: 1rem;">' . $results['title'] . '</h5>';
+                        echo '<h5 class="card-title text-center" style="font-size: 1rem;">' . '<strong>'. $results['title'] . '</strong>' . '</h5>';
                         echo '<p class="card-text text-center">' . $results['description'] . '</p>';
-                        echo "<a href='" . $results['link'] . "' class='card-link' >" ."Link" . "</a>";
+                        echo "<a href='" . $results['link'] . "' class='card-link' >" . "Link" . "</a>";
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
                     }
                 } ?>
-                </div>
             </div>
-    
+        </div>
+
         <!-- </div> -->
 
     </div>
 
-    
-    
+
+
 
 
     <!-- //     echo $results['time'];
