@@ -8,7 +8,7 @@ PHP
 Bootstrap
 
 ## Screenshots and demo
-![Alt text](/images\Screenshot.JPG?raw=true "Demo Screenshot")
+![Alt text](/RSS_Project/images/Screenshot.JPG?raw=true "Demo Screenshot")
 
 ## Installation
 Simply Git clone the project and start a PHP server, either through a VS Code extension or using XAMMP, MAMMP etc.

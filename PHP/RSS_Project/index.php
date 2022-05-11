@@ -8,26 +8,33 @@ function domain($url)
 
 function rSS($url)
 {
-    $content = file_get_contents($url);
-
-    $a = new SimpleXMLElement($content);
-    $buildRSS = simplexml_load_file($url);
+    $buildRSS = simplexml_load_file($url); // converting webpage into object
     $result = array();
-    foreach ($buildRSS->channel->item as $item) {
-
-        $title = $item->title;
-        $link = $item->link;
-        $description =  substr($item->description, 0, 140) . '....';
-        $dateOnly = substr($item->pubDate, 0, -14);
-        $time =  date("g:iA", strtotime(substr($item->pubDate, 16, -5)));
+    if (!filter_var($url, FILTER_VALIDATE_URL) === false){ // if the url is valid, new object will be built
+        foreach ($buildRSS->channel->item as $item) {
+            $title = $item->title;
+            $link = $item->link;
+            $description =  substr($item->description, 0, 140) . '....'; // in order to keep cards responsive and manageable, description is sliced to len of a tweet 
+            $dateOnly = substr($item->pubDate, 0, -14);
+            $time =  date("g:iA", strtotime(substr($item->pubDate, 16, -5)));
+            $result[] = array(
+                'title' => $title,
+                'link' => $link,
+                'description' =>  $description,
+                'time' => $dateOnly . ' ' . $time, // concatenating date and time variables for ease of use 
+            );
+        };;
+        return $result;
+    } else {
         $result[] = array(
-            'title' => $title,
-            'link' => $link,
-            'description' =>  $description,
-            'time' => $dateOnly . ' ' . $time,
+            'title' => 'invalid url',
+            'link' => 'invalid url',
+            'description' => 'invalid url',
+            'time' => 'invalid url' . ' ' . 'invalid url',
         );
-    };;
-    return $result;
+        echo '<h1> This URL is not valid, please try again </h1>';
+        return $result;
+    }
 }
 
 ?>
@@ -67,15 +74,11 @@ function rSS($url)
                 </div>
             </div>
         </form>
-
         <div class="content container-fluid">
             <div class="row justify-content-center align-items-center">
-
-                <!-- <div class="col-sm text-center"> -->
                 <?php if (isset($_POST['submit'])) {
                     echo '<h2 class="text-center">'. 'Fed from ' . '<strong>'. domain($_POST['rssurl']). '</strong>' . '</h2>';
                     $result = rss($_POST['rssurl']);
-
                     foreach ($result as $results) {
                         echo '<div class=col>';
                         echo '<div class="card mx-1 my-1" style="width: 18rem; ">';
@@ -90,22 +93,7 @@ function rSS($url)
                 } ?>
             </div>
         </div>
-
-        <!-- </div> -->
-
     </div>
-
-
-
-
-
-    <!-- //     echo $results['time'];
-    // 'title' => $title,
-    // 'link' => $link,
-    // 'description' =>  $description,
-    // 'time' => $dateOnly . ' ' . $time , -->
-
-
 </body>
 
 </html>
