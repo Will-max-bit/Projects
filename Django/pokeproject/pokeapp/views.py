@@ -45,6 +45,7 @@ def load_vue_pokemon(request):
     list_pokemon_data = []
     for pokemon in list_pokemon:
         list_pokemon_data.append({
+            'number': pokemon.number,
             'name': pokemon.name,
             'height': pokemon.height,
             'weight': pokemon.weight,

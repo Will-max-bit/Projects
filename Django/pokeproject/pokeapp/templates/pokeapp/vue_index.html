@@ -6,12 +6,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- google fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{% static 'pokeapp/favicon.ico' %}" type="image/png">
+    <!-- internal CSS -->
     <link rel="stylesheet" href="{% static 'pokeapp/style.css' %}">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sigmar+One&display=swap" rel="stylesheet">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Lobster&family=Macondo&family=Ribeye&display=swap"
+        rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -21,58 +25,178 @@
 
 <body>
     <div id="app">
-        <div class="container">
-            <div class="sticky-top">
-                <h1 class=" mr-6 ">Pokedex!!!</h1>
-                <div class="mb-3 ml-6" id="search_area">
-
-                    <input  type="text" v-model="search_text" placeholder="search by name and type"
-                        class="form-control" id="search" />
-
-                </div>
-                <div id="submit_btn">
-                    <button type="submit" class="btn btn-primary mb-3 mr-3" v-on:click="vue_index">Search</button>
-                    <button class="btn btn-outline-secondary mb-3 mr-3" v-if="search_text != ''"
-                        v-on:click="search_text ='';vue_index()">Clear Search</button>
-                </div>
-            </div>
-            <div class="row justify-content-md-center">
-                
-                <div class="justify-content-center d-flex flex-wrap">
-
-
-
-                    <div class="my-3 mx-1" id="card" v-for="pokemon in pokemons" style="width: 18rem;">
-                        <img v-bind:src="[[pokemon.image_front]]" class="card-img-top" alt="...">
-                        <hr>
-                        <img v-bind:src="[[pokemon.image_back]]" class="card-img-top" alt="...">
-                        <div class="card-body">
-
-                            <hr>
-                            <h5 class="card-title">[[pokemon.name]]</h5>
-                            <p class="card-text">
-                            <h6>Height</h6>[[pokemon.height]]
-                            <br>
-                            <h6>Weight</h6> [[pokemon.weight]]
-                            <br>
-                            <h6>Type(s)</h6> [[pokemon.type]]
-                            </p>
-                            <a v-bind:href="[[pokemon.url]]" target="_blank" class="btn btn-primary">The Wiki</a>
+<!-- search, random and select by type -->
+        <div class="container pokeouter">
+            <h1 class="text-center"> Pokédex </h1>
+            <div class="row poke-adj justify-content-space-center flex-row-reverse">
+                <div class="col align-items-center">
+                    <div class="container right-side">
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <h3 class="text-start"> By name or type</h3>
+                            </div>
+                        </div>
+                        <div class="row justify-content-start">
+                            <div class="col-8">
+                                <div class="input-group" id="search_area">
+                                    <input type="text" v-model="search_text" v-on:keyup.enter="vue_index"
+                                        placeholder="search by name and type" class="form-control" id="search" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div id="submit_btn">
+                                    <a href="#poke-content">
+                                        <button type="submit" class="btn btn-primary mb-3 mr-3" href="#poke-content"
+                                            v-on:click="vue_index">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                            </svg></button>
+                                    </a>
+                                    <button class="btn btn-primary btn-sm mb-3 mr-3" v-if="search_text != ''"
+                                        v-on:click="search_text ='';vue_index()">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-start my-0">
+                            <div class="col-8 text-center">
+                                <h2>Filter by type</h2>
+                                <button type="button" v-for="type in types" v-on:click="pokeType([[type]])"
+                                    class="btn btn-primary btn-sm " :class="[[type]]">[[type]]</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <nav class="mt-3">
-                        <ul class="pagination pagination-sm justify-content-left">
-                            <li class="page-item"><a v-on:click="previous_page" class="page-link" href="#">Previous</a>
-                            </li>
-                            <a v-on:click="set_page(page)" v-for="page in num_pages"
-                                v-bind:class="{ highlight_page: page == current_page }" class="page-link"
-                                href="#">[[page]]</a>
-                            <li class="page-item"><a v-on:click="next_page(page)" class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+    <!-- Random Pokemon card -->
+                <div class="col mt-2">
+                    <div class="container-sm m-0 p-0">
+                        <div class="row justify-content-center ">
+                            <div class="col-4 outer-screen-col ">
+                                <h2 class="text-center">Random</h2>
+                                <!-- renders only if the random function has ran -->
+                                <div class="card screen flex-row" v-if="randomPokemon.length != 0">
+                                    <img v-bind:src="[[randomPokemon.image_front]]" class="card-img-top"
+                                        :alt="[[randomPokemon.name]]">
+                                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                        <h5 class="card-title inner-title">[[randomPokemon.name]]</h5>
+                                        <p class="card-text">
+                                            <span> Height - [[randomPokemon.height]]</span>
+                                            <br>
+                                            <span> Weight - [[randomPokemon.weight]]</span>
+                                            <br>
+                                            <span> Type(s) - </span>
+                                            <span>[[randomPokemon.type]]</span>
+                                        </p>
+                                        <a v-bind:href="[[randomPokemon.url]]" target="_blank" class="link-random"><svg
+                                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                                                class="bi bi-box-arrow-up-left" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M7.364 3.5a.5.5 0 0 1 .5-.5H14.5A1.5 1.5 0 0 1 16 4.5v10a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 3 14.5V7.864a.5.5 0 1 1 1 0V14.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-.5-.5H7.864a.5.5 0 0 1-.5-.5z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 0 1H1.707l8.147 8.146a.5.5 0 0 1-.708.708L1 1.707V5.5a.5.5 0 0 1-1 0v-5z" />
+                                            </svg></a>
+                                    </div>
+                                </div>
+                                <!-- blank box for random generation -->
+                                <div class="blank col-4 sm-1" v-else>
+                                </div>
+                            </div>
+                            <!-- random on click button -->
+                            <div class="flex-row align-self-center">
+                            </div>
+                            <div class="flex-row align-self-center">
+                                <button type="submit" class="btn btn-primary-outline btn-lg mb-3 mr-3 random-poke"
+                                    v-on:click="randomPoke"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-dice-4-fill" viewBox="0 0 16 16">
+                                        <path d="M3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3zm1 5.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm8 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm1.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM4 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                    </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white"
+                                        class="bi bi-dice-5-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3H3zm2.5 4a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm8 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM12 13.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM5.5 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM8 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- end random pokemon -->
+
+<!-- poke cards start -->
+        <div class=" container">
+            <div class="row justify-content-center poke-content">
+                <div class="col-2 m-3 sm-4 " v-for="pokemon in pokemons">
+                    <!-- slicing iterable and assigning to class due to array type -->
+                    <div :class="[[pokemon.type.slice(0,3)]]">
+                        <!-- using inline styling for ease of styling in loop -->
+                        <img v-bind:src="[[pokemon.image_front]]" style="background: #919191 !important; border-bottom: 0.25rem solid rgb(255, 222, 0) !important;
+                        box-shadow:inset 0 0 15px #000000;" class="card-img-top" :alt="[[pokemon.name]]">
+                        <div class="card-body">
+                            <h5 class="name card-title text-center">[[pokemon.name]]</h5>
+                            <ul>
+                                <li>
+                                    <span> Height - <small>[[pokemon.height]] </small></span>
+                                </li>
+                                <li>
+                                    <span> Weight - <small> [[pokemon.weight]]</small> </span>
+                                </li>
+                                <li>
+                                    <span> Type - <small> [[pokemon.type]]</small> </span>
+                                </li>
+                            </ul>
+                            <div class="row justify-content-center">
+                                <div class="col text-center mb-1">
+                                    <div>
+                                        <a v-bind:href="[[pokemon.url]]" target="_blank" rel="noopener noreferrer">
+                                            <img class="ball" src="{% static 'pokeapp/pokeball.png' %}" alt="wiki link">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- marker for page scroll -->
+        <div id="poke-content"></div>
+<!-- end pokemon content -->
+
+<!-- pagination start -->
+        <div class="container pagination " v-if="pokemons.length != 0">
+            <div class="row justify-content-center flex-nowrap">
+                <div class="col text-center">
+                    <li class="page-item"><a v-on:click="previous_page" class="page-link" href="#"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                            </svg></a></li>
+                </div>
+                <div class="col m-0 p-0 " v-for="page in num_pages">
+                    <!-- in order to not display 45 pages, I conditionally slice the array so only a manageable amount appear at one time -->
+                    <div class="ku" v-if="page < current_page + 20 && page > current_page - 10">
+                        <li>
+                            <a v-on:click="set_page(page)" v-bind:class="{ highlight_page: page == current_page }"
+                                class="page-link" href="#">[[page]]</a>
+                        </li>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <li class="page-item"><a v-on:click="next_page(page)" class="page-link" href="#"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+                            </svg></a></li>
                 </div>
             </div>
         </div>
@@ -80,19 +204,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script>
-        // Vue
+        //
         let app = new Vue({
             el: '#app',
             delimiters: ['[[', ']]'],
             data: {
                 image: "https://unsplash.com/photos/TWCnHKKhqSo",
-                message: 'hello world',
                 current_page: 1,
                 pokemons: [],
+                pokemonTypearra: [],
                 num_pages: 1,
                 search_text: '',
-                types: [],
+                randomPokemon: [],
+                types: ['normal', 'fire', 'water', 'grass', 'electric',
+                    'ice', 'fighting', 'ground', 'flying', 'psychic',
+                    'bug', 'rock', 'ghost', 'dark', 'dragon', 'steel',
+                    'fairy'
+                ]
             },
+            // possible code out auto prediction
             methods: {
                 // loads the pokemon in the webpage from database
                 vue_index: function () {
@@ -103,11 +233,27 @@
                             page: this.current_page,
                             search: this.search_text
                         }
-
                     }).then(response => {
                         this.pokemons = response.data.list_pokemon
                         this.num_pages = response.data.num_pages
                     })
+                },
+                randomPoke: function () {
+                    let randInt = Math.ceil(Math.random() * (899 - 1) + 1);
+                    axios({
+                        url: "{% url 'pokeapp:load_vue_pokemon' %}",
+                        method: 'get',
+                    }).then(response => {
+                        let temporary = response.data.list_pokemon[randInt]
+                        // console.log(temporary)
+                        this.randomPokemon = temporary
+                        console.log(this.randomPokemon)
+                    })
+                },
+                pokeType: function (type) {
+                    typeStr = type[0]
+                    this.search_text = typeStr[0]
+                    this.vue_index()
                 },
                 // pagination controls below
                 previous_page: function () {
@@ -129,7 +275,7 @@
             },
             // loading pokemon function from line94 "vue_index" is ran on lifecycle
             created: function () {
-                this.vue_index()
+                // this.vue_index()
             }
         })
 

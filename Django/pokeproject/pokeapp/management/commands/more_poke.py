@@ -3,7 +3,7 @@ import json
 import pyperclip
 
 data = {'pokemon':[]}
-num_pokemon = 900
+num_pokemon = 899
 for i in range(1, num_pokemon):
     # get the data from the pokemon api
     response = requests.get('https://pokeapi.co/api/v2/pokemon/' + str(i))
