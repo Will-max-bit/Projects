@@ -129,8 +129,9 @@ ul>li {
     margin: 1px !important;
 }
 
-.random-poke {
+.random-poke, .pokeSearch, .clearText {
     background-color: transparent !important;
+    border-color: transparent !important;
 }
 
 /* ///////////////////////// */
