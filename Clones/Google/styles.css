@@ -42,22 +42,24 @@ img{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin: 5px;
+  min-height: 100vh !important;
   
 }
 .main > *{
   margin: 10px;
 }
 .box-btns {
-  max-width: 75vh;
-  justify-content: center;
+  /* max-width: 75vh; */
+  justify-content: space-around;
   display: flex;
   flex-flow: row wrap;
 
 }
 .box-self{
-  max-width: 10%;
-  margin-right: 2%;
+  /* max-width: 10%;
+  margin-right: 2%; */
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
