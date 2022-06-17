@@ -401,6 +401,7 @@ export default {
 .title{
   font-size: 2.5rem !important;
   text-align: center;
+  color: whitesmoke;
   font-family: 'Source Code Pro', monospace;
 }
 p{
