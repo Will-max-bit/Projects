@@ -1,7 +1,7 @@
 # Tattoo shop website
 
 ## About
-<p>A fullstack application featuring a functional tattoo shop website  </p>
+<p>A fullstack application featuring a functional tattoo shop website</p>
 
 ## Tech/framework used
 <ul>
