@@ -56,9 +56,9 @@ let app = new Vue({
                 url: 'http://hp-api.herokuapp.com/api/characters',
             }).then(response => {
                 this.names = response.data
-                console.log(this.names)
-                for (let value of this.names){
-                }
+                // console.log(this.names)
+                // for (let value of this.names){
+                // }
                 this.names = response.data.house
 
             })
