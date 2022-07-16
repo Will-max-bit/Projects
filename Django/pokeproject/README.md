@@ -14,7 +14,7 @@
 
 
 ## Screenshots and demo
-![Demo Screenshot](pokeapp\static\pokeapp\Demo.JPG?raw=true "Demo Screenshot")
+![Demo Screenshot](https://github.com/Will-max-bit/Projects/blob/main/Django/pokeproject/pokeapp/static/pokeapp/Demo.JPG "Demo Screenshot")
 
 ## Installation
 Simply Git clone the project, ensure you have the proper dependencies installed. Run Django migrations, then the base commands, then migrations again. The project should work with a fully populated database now.
