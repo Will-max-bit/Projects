@@ -11,7 +11,7 @@
 
 
 ## Screenshots and demo
-![Demo Screenshot](pokeapp\static\pokeapp\Demo.JPG?raw=true "Demo Screenshot")
+![Demo Screenshot](https://github.com/Will-max-bit/Projects/blob/main/Django/RoseTattoo/Demo.JPG "Demo Screenshot")
 
 ## Installation
 Simply Git clone the project, ensure you have the proper dependencies installed and run the application.
