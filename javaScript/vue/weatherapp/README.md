@@ -9,7 +9,7 @@
 
 
 ## Screenshots and demo
-![Alt text](/weather/weatherapp/demo.JPG?raw=true "Demo Screenshot")
+![Alt text](https://github.com/Will-max-bit/Projects/blob/main/javaScript/vue/weatherapp/demo.JPG "Demo Screenshot")
 
 ## Installation
 Simply Git clone the project and use yarn serve to run the project
