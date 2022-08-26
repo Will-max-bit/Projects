@@ -1,8 +1,15 @@
 <template>
   <div>
     <h1>Color Palette</h1>
-    <button @click="paletteGenerator">checking</button>
-    <button @click="savePalett">Save Pallet</button>
+    <div v-if="copied == 1">
+      <p>Copied</p>
+    </div>
+    <div v-else>
+      <p>Welcome to the Palette Generator</p>
+    </div>
+    <button @click="paletteGenerator">Generate New</button>
+    <button @click="savePalett">Save Palette</button>
+    <button @click="copyCurrent">Copy Palette</button>
   </div>
   <div class="colors">
     <div
@@ -11,30 +18,29 @@
       :key="index"
       :style="{ backgroundColor: color }"
     >
-      <!-- make way to store pallets  -->
       <div class="code">
-        <!-- <a type="text" 
-        v-on:focus="$event.target.select()"
-        ref='myInput'
-        readonly
-        :value="text"
-        
-        > -->
-        <input type="text" id="myInput" :value="color">
-          {{ color }}
-          <button @click="copy">copy</button>
-        <!-- </a> -->
+        <input type="text" id="myInput" :value="color" />
+        <button @click="copy(color)">copy</button>
       </div>
     </div>
     <div class="saved" v-if="this.savedPaletts.length != 0">
       <h4>my saved palettes</h4>
       <ul v-for="(pallet, index) in savedPaletts" :key="index">
-        <button @click="loadPalett(index)"> Load Palett</button>
-        <li v-for="(palletColor, idx) in pallet" :key="idx" :style="{ backgroundColor: palletColor }">{{palletColor}}</li>
+        <button @click="loadPalett(index)">Load Palett</button>
+        <button @click="savePreviousPalett(index)">Copy Palett</button>
+        <div v-if="palletDuplicateFlag != 1">
+           <li
+            v-for="(palletColor, idx) in pallet"
+            :key="idx"
+            :style="{ backgroundColor: palletColor }"
+          >
+            {{ palletColor }}
+          </li>
+        </div>
+        <div v-if="palletDuplicateFlag == 1">
+          <p>please work</p>
+        </div>
       </ul>
-      <div v-if="this.palletDuplicateFlag == true">
-        <p>Pallet Already saved</p>
-      </div>
     </div>
   </div>
 </template>
@@ -47,12 +53,13 @@ export default {
     return {
       colors: [],
       savedPaletts: [],
-      text: '',
-      pallettDuplicateFlag: false,
+      text: "",
+      pallettDuplicateFlag: 0,
+      copied: 0,
     };
   },
   methods: {
-    paletteGenerator() {
+    paletteGenerator(){
       this.colors = [];
       for (let i = 0; i < 5; i++) {
         let randomColor = Math.floor(Math.random() * 16777215).toString(16);
@@ -60,36 +67,42 @@ export default {
         this.colors.push(randomColor);
       }
     },
-    savePalett(){
-      let tempPalet = this.colors
-      const checker = this.savedPaletts[this.savedPaletts.length - 1]
-      if ( checker == this.colors){
-        console.log('dup pallet')
-        this.pallettDuplicateFlag = true
-        }
-      else{
-        // console.log('it works')
-        console.log('new pallet')
-        this.savedPaletts.push(tempPalet)
-        console.log(this.savedPaletts.length)
-        this.pallettDuplicateFlag = false
-        // if ( this.savedPaletts.length > 1){
-        // }
+    savePalett() {
+      let tempPalet = this.colors;
+      const checker = this.savedPaletts[this.savedPaletts.length - 1];
+      if (checker == this.colors) {
+        console.log('same palette')
+        this.pallettDuplicateFlag = 0;
+      } else {
+        console.log("new pallet");
+        this.savedPaletts.push(tempPalet);
+        this.pallettDuplicateFlag = 1;
       }
     },
-    loadPalett(idx){
-      console.log(idx)
-      this.colors = this.savedPaletts[idx]
+    timeOutHelper(){
+      this.copied = 1;
+      setTimeout(() => {this.copied = 0}, 5000)
     },
-    copy (){
-      let copyText = document.getElementById("myInput")
-      copyText.select()
-      copyText.setSelectionRange(0, 99999)
-      navigator.clipboard.writeText(copyText.value)
-      alert(copyText.value)
-      // this.$refs.myInput.focus()
-      // document.execCommand('copy')
-    }
+    loadPalett(idx) {
+      this.colors = this.savedPaletts[idx];
+    },
+    copyCurrent(){
+      let currentRaw = this.colors
+      let currentCopy = currentRaw.toString()
+      navigator.clipboard.writeText(currentCopy)
+      this.timeOutHelper()
+
+    },
+    savePreviousPalett(previousPalett){
+      let palletRaw = this.savedPaletts[previousPalett]
+      let palletCopy = palletRaw.toString()
+      navigator.clipboard.writeText(palletCopy);
+      this.timeOutHelper()
+    },
+    copy(code) {
+      navigator.clipboard.writeText(code);
+      this.timeOutHelper()
+    },
   },
 };
 </script>
