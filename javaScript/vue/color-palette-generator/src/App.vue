@@ -23,8 +23,10 @@
         :style="{ backgroundColor: color }"
       >
         <div class="code" :style="{ backgroundColor: color }">
-          <input type="text" id="myInput" :value="color" />
-          <button @click="copySingleColor(color)">copy</button>
+          <select name="color-code" id="color-code" v-model="userColorCode" multiple>
+            <option :value="color" @click="copySingleColor(color)">{{color}}</option>
+            <option value="rgb" @click="copySingleColor(this.rgbColors[index])">{{this.rgbColors[index]}}</option>
+          </select>
         </div>
       </div>
     </div>
@@ -53,7 +55,6 @@
     </div>
   </main>
 </template>
-
 <script>
 export default {
   name: "App",
@@ -61,52 +62,62 @@ export default {
   data() {
     return {
       textColorCompliment: {
-        color: '',
+        color: "",
       },
       colors: [],
       savedPaletts: [],
+      backgroundColors: [],
+      rgbColors: [],
       text: "",
       pallettDuplicateFlag: 0,
       copied: 0,
       duplicateFlag: 0,
-      backgroundColors: []
+      userColorCode: '',
     };
   },
   methods: {
     paletteGenerator() {
       this.colors = [];
-      // let colorRGB = this.colors
       this.backgroundColors = [];
       for (let i = 0; i < 5; i++) {
         let randomColorHex = Math.floor(Math.random() * 16777215).toString(16);
         randomColorHex = "#" + randomColorHex;
         this.colors.push(randomColorHex);
-        // let textColorCompliment = 0xFFFFFF ^ randomColorHex
-        // console.log(textColorCompliment)
-        // let blah = textColorCompliment.toString(16)
-        // console.log(blah)
       }
-      this.backgroundColors = `linear-gradient(to left, ${this.colors[0]}, ${this.colors[1]}, ${this.colors[2]}, ${this.colors[3]}, ${this.colors[4]}`
-      this.textColorContrast(this.colors)
+      this.backgroundColors = `linear-gradient(to left, ${this.colors[0]}, ${this.colors[1]}, ${this.colors[2]}, ${this.colors[3]}, ${this.colors[4]}`;
+      this.rgbConverter(this.colors)
     },
-    textColorContrast(colors){
-      let rgbArr = []
-      for (let color of colors ){
-        color = color.replace('#', '')
-        let r = parseInt(color.substring(0,2), 16)
-        let g = parseInt(color.substring(2,4), 16)
-        let b = parseInt(color.substring(4,6), 16)
-        let singleColor = [r, g, b]
-        rgbArr.push(singleColor)
+    rgbConverter(colors){
+      let rgbArr = [];
+            for (let color of colors) {
+              color = color.replace("#", "");
+              let r = parseInt(color.substring(0, 2), 16);
+              let g = parseInt(color.substring(2, 4), 16);
+              let b = parseInt(color.substring(4, 6), 16);
+              let singleColor = [r, g, b];
+              rgbArr.push(singleColor);
+              this.rgbColors.push(singleColor);
+            }
+      this.textColorContrast(rgbArr)
+    },
+    textColorContrast(rgbColors) {
+      // let rgbArr = [];
+      // for (let color of colors) {
+      //   color = color.replace("#", "");
+      //   let r = parseInt(color.substring(0, 2), 16);
+      //   let g = parseInt(color.substring(2, 4), 16);
+      //   let b = parseInt(color.substring(4, 6), 16);
+      //   let singleColor = [r, g, b];
+      //   rgbArr.push(singleColor);
+      //   this.rgbColors.push(singleColor);
+      // }
+      console.log(rgbColors, 'rgb colors')
+      let centerColor = rgbColors[2][1];
+      if (centerColor <= 100) {
+        this.textColorCompliment.color = "rgba(235,235,235, 1)";
+      } else if (centerColor > 200) {
+        this.textColorCompliment.color = "rgba(0,0,0, 1)";
       }
-      let centerColor = rgbArr[2][1]
-
-      if (centerColor <= 100){
-        this.textColorCompliment.color = 'rgba(235,235,235, 1)'
-      } else if ( centerColor > 200){
-        this.textColorCompliment.color = 'rgba(0,0,0, 1)'
-      }
-
     },
     savePalett() {
       let tempPalet = this.colors;
@@ -119,7 +130,7 @@ export default {
           this.duplicateFlag = 0;
         }, 2500);
       } else {
-        if (paletteSize >= 8) {
+        if (paletteSize >= 6) {
           this.savedPaletts.shift();
           this.savedPaletts.push(tempPalet);
           this.pallettDuplicateFlag = 1;
@@ -146,12 +157,14 @@ export default {
     },
     savePreviousPalett(previousPalett) {
       let palletRaw = this.savedPaletts[previousPalett];
-      console.log(navigator);
       let palletCopy = palletRaw.toString();
       navigator.clipboard.writeText(palletCopy);
       this.timeOutHelper();
     },
     copySingleColor(code) {
+      if (this.userColorCode != ''){
+        console.log('single color function from vue model')
+      }
       navigator.clipboard.writeText(code);
       this.timeOutHelper();
     },
@@ -164,7 +177,7 @@ export default {
 
  
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lobster&family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Lobster&family=Pacifico&display=swap");
 /* fonts */
 h1,
 h2 {
@@ -185,7 +198,7 @@ p {
   font-size: 3rem;
   margin: 0 auto;
 }
-main{
+main {
   width: 100vw !important;
   height: 100vh !important;
 }
@@ -216,13 +229,13 @@ li > p {
   border: 2px black solid;
 }
 .code {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    /* background-color: black; */
-    height: auto;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: black; */
+  height: auto;
+  width: 100%;
 }
 .code > p {
   text-align: center;
@@ -232,9 +245,9 @@ li > p {
 .code > input {
   text-align: center;
 }
-.code > button{
+.code > button {
   width: 50%;
-  }
+}
 .saved {
   display: flex;
   justify-content: center;
@@ -246,11 +259,11 @@ li > p {
   flex: 0 0;
 }
 button {
-    font-family: 'Lobster', cursive;
-    font-size: 1.5rem;
-    border-radius: 8px;
+  font-family: "Lobster", cursive;
+  font-size: 1.5rem;
+  border-radius: 8px;
 }
-button:hover{
-  box-shadow: 1px 3px 5px 4px rgba(0,0,0,0.75);
+button:hover {
+  box-shadow: 1px 3px 5px 4px rgba(0, 0, 0, 0.75);
 }
 </style>
