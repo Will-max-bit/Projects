@@ -1,5 +1,6 @@
-body{
-    background-color: brown;
+#app{
+    width: 100vw;
+    height: 100vh;
 }
 /* :root{
     background-color: black;
