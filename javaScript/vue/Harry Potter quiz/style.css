@@ -21,7 +21,9 @@
     background-position: left, center, right;
 
 }
-
+.answer-btn{
+    max-width: 50%;
+}
 @media (max-width: 480px) {
     .question-boxs {
         background-image: url('https://images.unsplash.com/photo-1586796676789-f6fe8cc276f7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
@@ -29,7 +31,9 @@
         background-size: cover;
     }
 }
-
+.question-size{
+    max-width: 50%;
+}
 p,
 h1 {
     text-shadow: 1px 1px 2px rgba(242, 153, 0, 1);

@@ -1,9 +1,8 @@
 <template>
-<head>
+  <div id="app" :class="backgroundClass">
+    <head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 </head>
-  <div id="app" :class="backgroundClass">
-    <!-- <h1 style="text-align: center;">Weather</h1> -->
     <div class="current">
     <p class="title">Weather</p>
       
@@ -15,9 +14,7 @@
               <span class="material-symbols-outlined">
                 search
                 </span>
-          <!-- <button @click="weatherCall">Click me</button> -->
           </a>
-
         </div>
         <div class="daily" v-if="Object.keys(dailyWeatherData).length != 0">
           <img
@@ -217,7 +214,6 @@ export default {
       let sunSet = this.timeBuilder(this.dailyWeatherData["sys"]["sunset"])
       let description = this.dailyWeatherData["weather"][0]["description"]
       this.condition = description
-      // description = description.toUpperCase()
       let icon =
         "http://openweathermap.org/img/wn/" +
         this.dailyWeatherData["weather"][0]["icon"] +
@@ -275,7 +271,6 @@ export default {
     },
   },
   created: function(){
-    // console.log(this.setDaily)
     this.backgroundCalc()
   },
 };
@@ -303,6 +298,7 @@ export default {
     max-width: 100vw;
     font-size: 2rem;
 }
+
 .daily {
     justify-content: center !important;
     text-align: center;
