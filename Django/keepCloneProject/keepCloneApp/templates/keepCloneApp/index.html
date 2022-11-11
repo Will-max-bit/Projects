@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script type="importmap">
+    <!-- <script type="importmap">
   {
     "imports": {
       "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
     }
   }
   
-</script>
+</script> -->
+    <script src="https://unpkg.com/vue@3.0.0-rc.5/dist/vue.global.prod.js"></script>
     <title>KeepClone</title>
 </head>
 
@@ -59,8 +60,8 @@
                                   </svg>
                             </a>
                             <div class="card-body">
-                                <h5 class="card-title">{{note.title}}</h5>
-                                <p class="card-text d-inline-block text-truncate" style="max-width: 100%;">{{note.body}}
+                                <h5 class="card-title">[[note.title]]</h5>
+                                <p class="card-text d-inline-block text-truncate" style="max-width: 100%;">[[note.body]]
                                 </p>
                             </div>
                         </div>
@@ -92,12 +93,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script type="module">
-        import { createApp } from 'vue'
-        createApp({
+        const app = Vue.createApp({
+            el: '#app',
+            // app.config.compilerOptions.delimiters = ['${', '}'],
+            delimiters: ['[[', ']]'],
             data() {
                 return {
-                    message: 'Hello Vue!',
                     bodyNoteRaw: '',
                     titleNoteRaw: '',
                     savedNotes: [],
@@ -109,6 +112,7 @@
                 notes() {
                     let localTitle = this.titleNoteRaw
                     let localBody = this.bodyNoteRaw
+                    console.log(localTitle)
                     if (localTitle && localBody != ''){
                         let noteObj = {
                             'title': localTitle,
@@ -118,6 +122,18 @@
                         this.bodyNoteRaw = ''
                         this.titleNoteRaw = ''
                     }
+                    // Move this to it's own function
+                    
+                },
+                load_notes(){
+                    axios({
+                        url: "{% url 'keepCloneApp:db_notes' %}",
+                        method: 'get',
+
+                    }).then(response => {
+                        console.log(response.data)
+                        this.savedNotes = response.data.notes
+                    })
                 },
                 noteModal(target) {
                     let focusTitle = this.savedNotes[target].title
@@ -142,6 +158,7 @@
                 }
             },
             created() {
+                this.load_notes()
                 // this.note()
             }
         }).mount('#app')
