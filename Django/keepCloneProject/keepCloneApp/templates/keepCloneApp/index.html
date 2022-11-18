@@ -1,11 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'keepCloneApp/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- <script type="importmap">
@@ -17,6 +17,7 @@
   
 </script> -->
     <script src="https://unpkg.com/vue@3.0.0-rc.5/dist/vue.global.prod.js"></script>
+    <!-- <script src="{% static 'keepCloneApp/scripts.js'%}"></script> -->
     <title>KeepClone</title>
 </head>
 
@@ -37,31 +38,57 @@
         <main class="container h-50 text-center">
             <div class="row justify-content-center h-100 align-items-center ">
                 <div class="col-4">
-                    <div class="form-floating">
-                        <input type="text" name="title" v-model="titleNoteRaw" class="form-control" placeholder="Title"
+                    <div class="form-floating form-control">
+                        <input type="text" name="title" v-model="titleNoteRaw" id="" class="form-control" id="title" placeholder="Title"
                             aria-label="Title">
                         <textarea name="body" v-model="bodyNoteRaw" placeholder="Compose a Note" id=""
                             aria-placeholder="Compose a note" cols="30" rows="20" class="form-control"
                             v-on:keyup.enter="notes">
                         </textarea>
-                        <button type="button" class="btn btn-light" @click="notes()">Light</button>
+                        <button type="button" class="btn btn-light" @click="notes">Light</button>
                     </div>
                 </div>
             </div>
         </main>
+        <!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
         <section class="container-fluid h-50">
             <div class="row ">
                 <div class="col-2" v-for="(note, index) in savedNotes">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" @click="noteModal(index)" data-bs-target="#exampleModal">
+                        Open Note
+                      </button>  
+                    <!-- The modal is singular, meaning that for each press of the button, the modals content is regenerated -->
                     <a href="#" title="open the note in detail" @click="noteModal(index)" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <div class="card" style="width: 18rem;">
                             <a title="delete the note" href="#" @click="deleteNote(index)">
-                                <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <svg  xmlns="http://www.w3.org/2000/svg" width="8" height="8" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                                  </svg>
+                                </svg>
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">[[note.title]]</h5>
-                                <p class="card-text d-inline-block text-truncate" style="max-width: 100%;">[[note.body]]
+                                <p class="card-text d-inline-block text-truncate" style="max-width: 100%;">[[note.note_body]]
                                 </p>
                             </div>
                         </div>
@@ -79,10 +106,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <textarea name="" id="" cols="30" rows="10" v-model="focusedNote[1]"></textarea>
+                            <p>
+                                <textarea name="" id="" cols="30" rows="10" v-model="focusedNote[1]"></textarea>
+                            </p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="editFocusedNote">Save changes</button>
                         </div>
                     </div>
@@ -119,20 +148,34 @@
                             'body': localBody
                         }
                         this.savedNotes.push(noteObj)
+                        this.saveNote(localTitle, localBody)
                         this.bodyNoteRaw = ''
                         this.titleNoteRaw = ''
                     }
                     // Move this to it's own function
-                    
                 },
                 load_notes(){
                     axios({
                         url: "{% url 'keepCloneApp:db_notes' %}",
                         method: 'get',
-
                     }).then(response => {
-                        console.log(response.data)
+                        console.log(response.data.notes)
                         this.savedNotes = response.data.notes
+                    })
+                },
+                saveNote(title, body){
+                    let form_data = new FormData()
+                    form_data.append('title', title)
+                    form_data.append('note_body', body)
+                    axios({
+                        url: "{% url 'keepCloneApp:save_note' %}",
+                        method: 'post',
+                        data: form_data,
+                        headers: {
+                            "X-CSRFToken": "{{ csrf_token }}"
+                        }
+                    }).then(response => {
+                        console.log('this')
                     })
                 },
                 noteModal(target) {
@@ -151,6 +194,19 @@
                     }
                     this.savedNotes[this.currentFocus] = editedNoteObj
                     this.currentFocus = 0
+                    let form_data = new FormData()
+                    form_data.append('title', this.focusedNote[0])
+                    form_data.append('body', this.focusedNote[1])
+                    axios({
+                        url: "{% url 'keepCloneApp:edit_note' %}",
+                        method: 'post', 
+                        data: form_data,
+                        headers: {
+                            "X-CSRFToken":"{{ csrf_token }}"
+                        }.then(response => {
+                            console.log(form_data)
+                        })
+                    })
                 },
                 deleteNote(index){
                     let deletedNote = this.savedNotes[index]
@@ -162,7 +218,6 @@
                 // this.note()
             }
         }).mount('#app')
-
     </script>
 </body>
 
