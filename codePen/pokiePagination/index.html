@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0">
+        <script
+            src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- Use preprocessors via the lang attribute! e.g. <template lang="pug"> -->
+<!-- Use preprocessors via the lang attribute! e.g. <template lang="pug"> -->
+
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
+        <div id="app">
+          <h1>Pokémon Pagination</h1>
+          <div class="pokemons">
+            <div v-for="pokemon in pokemonObj" :key="pokemon.id">
+              <div class="container" v-if="pokemon != ''">
+                <h4>{{ pokemon.name }}</h4>
+                <div v-if="detail[2] == pokemon.id" class="details">
+                  <img :src="detail[0]" alt="pokemon_front" />
+                  <img :src="detail[1]" alt="pokemon_back" />
+                </div>
+                <div v-else-if="detail[2] != pokemon.id">
+                  <img
+                    @click="moreInfo(pokemon.url)"
+                    class="pokeball"
+                    src="https://www.freeiconspng.com/uploads/pokeball-icon-20.jpg"
+                    alt="pokeball-icon-20"
+                  />
+                </div>
+                <a href="#/" @click="moreInfo(pokemon.url)">
+                  <span class="material-symbols-outlined">arrow_drop_down</span>
+                </a>
+                <a href="#/" v-if="detail.length > 2" @click="closeDetail()">
+                  <span class="material-symbols-outlined">close</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <ul>
+            <button>
+              <li @click="pagination(0)">1</li>
+            </button>
+            <button>
+              <li @click="pagination(20)">2</li>
+            </button>
+            <button>
+              <li @click="pagination(40)">3</li>
+            </button>
+            <button>
+              <li @click="pagination(60)">4</li>
+            </button>
+            <button>
+              <li @click="pagination(80)">5</li>
+            </button>
+          </ul>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"></script>
+      <script>
+      export default {
+        data() {
+          return {
+            pokemon: {},
+            detail: [],
+            pokemonObj: {
+              name: "",
+              id: "",
+              url: ""
+            },
+            numberId: 0
+          };
+        },
+        methods: {
+          pagination(number) {
+            axios({
+              method: "get",
+              url: "https://pokeapi.co/api/v2/pokemon",
+              params: {
+                offset: number,
+                limit: 20
+              }
+            }).then((response) => {
+              this.numberId = parseInt(number);
+              for (let i = 0; i < response.data.results.length; i++) {
+                let adjustId = parseInt(i + this.numberId);
+                this.pokemonObj[i] = {
+                  name: response.data.results[i].name,
+                  id: adjustId,
+                  url: response.data.results[i].url
+                };
+              }
+            });
+          },
+          closeDetail() {
+            this.detail = [];
+          },
+          moreInfo(url) {
+            axios({
+              method: "get",
+              url: url
+            }).then((response) => {
+              this.detail = [];
+              this.detail.push(response.data.sprites.front_default);
+              this.detail.push(response.data.sprites.back_default);
+              this.detail.push(response.data.id - 1);
+            });
+          }
+        },
+        created() {
+          this.pagination(0);
+        }
+      };
+      </script>
+      
+      <!-- Use preprocessors via the lang attribute! e.g. <style lang="scss"> -->
+      <style>
+      @import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Handjet&display=swap");
+      h1 {
+        text-align: center;
+        font-size: 5em;
+        font-family: "Handjet";
+        text-shadow: 1px 2px 7px #000000;
+      }
+      h4 {
+        font-family: "Alfa Slab One";
+        color: gold;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+        margin: 2%;
+        text-shadow: 8px 2px 10px #000000;
+      }
+      body {
+        background-color: rgb(51, 153, 255);
+      }
+      .pokemons {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        padding: 0;
+        width: 50vw;
+      }
+      
+      .container {
+        background: rgb(8, 85, 251);
+        background: radial-gradient(
+          circle,
+          rgba(8, 85, 251, 1) 5%,
+          rgba(251, 253, 255, 1) 40%,
+          rgba(255, 255, 255, 1) 55%,
+          rgba(230, 240, 255, 1) 57%,
+          rgba(22, 111, 255, 1) 74%
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 2em;
+        margin-right: 2em;
+        margin: 0.5em;
+        border-style: solid;
+        border-color: yellow;
+        outline-style: solid;
+        outline-color: gold;
+        min-width: 10vw;
+      }
+      ul {
+        list-style: none;
+        /* align-content: center; */
+        text-align: center;
+      }
+      button {
+        transistion-duration: 0.5s;
+        margin: 0.5rem;
+        font-size: 2em;
+        border-radius: 5px;
+      }
+      button:hover {
+        color: white;
+        background-color: black;
+        border: solid black;
+      }
+      .pokeball {
+        max-width: 5vw;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+      .pokeball:hover {
+        transform: scale(1.2);
+      }
+      </style>      
+    </body>
+</html>

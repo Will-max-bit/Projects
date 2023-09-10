@@ -1,0 +1,28 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(63, 63, 63);
+}
+
+figure {
+    text-align: center;
+}
+
+#zoom-image {
+    transition: transform 5s ease-in-out;
+    transform: scale(20);
+    max-width: 100%;
+    height: auto;
+    /* margin: 0 auto; */
+    display: block;
+
+}
+
+#zoom-image:hover {
+    transform: scale(var(--scale-factor));
+    transform: rotate(900deg);
+}
