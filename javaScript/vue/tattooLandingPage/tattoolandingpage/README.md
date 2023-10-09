@@ -10,7 +10,7 @@
 
 ## Screenshots and demo
 
-![Alt text]( "Demo Screenshot")
+![Alt text](https://raw.githubusercontent.com/Will-max-bit/Projects/main/javaScript/vue/tattooLandingPage/tattoolandingpage/src/assets/Demo.png "Demo Screenshot")
 
 ### Project setup
 
