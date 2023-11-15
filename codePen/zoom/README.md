@@ -1,46 +1,21 @@
-# color-palette-generator
+# Staircase Zoom
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# Color Pallettizer
-
+## About
+<p>For a codePen Challenge, Zoom with a small bit of Javascript</p>
 
 ## Tech/framework used
 <ul>
-<li>Vue 3</li>
-<li>Google Fonts</li>
+<li>Javascript</li>
+<li>CSS</li>
 </ul>
 
 
 ## Screenshots and demo
-![Alt text](https://github.com/Will-max-bit/Projects/blob/main/javaScript/vue/color-palette-generator/demo.JPG "Demo Screenshot")
-[Live Demo](https://codepen.io/will-max-bit/pen/MWGeaPo)
-## Installation
-Simply Git clone the project and use yarn serve to run the project
+Live Version at [https://codepen.io/will-max-bit/pen/XWoJxao]
 
-## References
-Photo by <a href="https://unsplash.com/@ninaluong?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nina Luong</a> on <a href="https://unsplash.com/s/photos/paints?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
+## Installation
+Simply Git clone the project, ensure you have the proper dependencies installed and run the application.
+
 ## License
 
 MIT License

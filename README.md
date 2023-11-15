@@ -25,7 +25,35 @@
 <details align="center">
 <p> Sorting Hat <sup><sub>A fun quiz application</sub></sup></p>
 
-[Sorting Hat](/javaScript/vue)
+[Sorting Hat](/javaScript/vue/Harry Potter quiz)
+
+<hr>
+<p> Color Palette Generator <sup><sub>dynamically generate different sets of colors</sub></sup></p>
+
+[Color Palette Generator](javaScript/vue/color-palette-generator)
+
+<hr>
+<p> Tattoo Landing Page <sup><sub>Example landing page for an artist</sub></sup></p>
+
+[Tattoo Landing Page](javaScript/vue/tattooLandingPage)
+</details>
+
+<h2 align="center">CodePen</h2>
+<details align="center">
+
+<p> Pokemon Pagination <sup><sub>Codepen challenge of the week</sub></sup></p>
+
+[Pokemon Pagination](CodePen\pokiePagination)
+<hr>
+
+<p> Zoom <sup><sub>Codepen challenge of the week</sub></sup></p>
+
+[Staircase Zoom](CodePen\Zoom)
+<hr>
+
+<p> Gallery <sup><sub>Codepen challenge of the week</sub></sup></p>
+
+[Photo Gallery](CodePen\gallery)
 <hr>
 </details>
 
