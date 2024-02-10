@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="app">
+            <!-- <template> -->
+            <div class="start">
+                <h1>Leap Years ;)</h1>
+                <button @click="showYears">
+                    {{showMeYears ? stopFall : startFall}}
+                </button>
+            </div>
+            <div class="shaded-box"></div>
+                <div class="year-box" v-if="showMeYears">
+                    <div class="leaf"  v-for="year in leapingYears" :key="year.year" :style="{animationDuration: year.duration, left: year.left,  animationDelay: year.animationDelay, animationFillMode: 'backwards', color: year.color }" >
+                        <div class="year">
+                            <p @click="numberCatch(year.year)">
+                                    {{year.year}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="catch-box" v-if="catchBox.length > 0">
+                    <div class="catch-box-content">
+                        <h2>Caught Years</h2>
+                        <div class="catch-box-content-inner">
+                            <p class="yearDetails">Year: <span>{{catchBox[0]}}</span></p>
+                            <p class="yearDetails">Years since caught: <span>{{yearsSinceCaught}}</span></p>
+                            <p class="yearDetails">Leap year instances since: <span>{{leapYearsSinceCaught}}</span></p>
+                            <button @click="closeCatchBox">Close</button>
+                        </div>
+                    </div>
+        </div>
+    <!-- </template> -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+     let app = Vue.createApp({
+        data() {
+            return {
+                startYear: 0,
+                endYear: 2024,
+                showMeYears: false,
+                leapingYears: [],
+                colorArr: [],
+                startFall: 'Start the fall',
+                stopFall: 'Stop the fall',
+                catchBox: [],
+            }
+        },
+        computed:{
+            yearsSinceCaught(){
+                return this.endYear - this.catchBox[0] 
+            },
+            leapYearsSinceCaught(){
+                let index = this.leapingYears.findIndex(obj => obj.year === this.catchBox[0]);
+                return this.leapingYears.length - index;
+            }
+        },
+        methods: {
+            showYears() {
+                this.showMeYears = !this.showMeYears
+                this.leapingYears = this.leapYearGenerator()
+            },
+            leapYearGenerator(){
+                let leapYears = []
+                for (let i = this.startYear; i <= this.endYear; i++) {
+                    if (i % 4 === 0 && (i % 100 !== 0 || i % 400 === 0)) {
+                        let randomColorHex = Math.floor(Math.random() * 16777215).toString(16);
+                        randomColorHex = "#" + randomColorHex;
+                        leapYears.push(
+                            {
+                                year: i,
+                                duration: `${Math.random() * 5 + + 5}s`,
+                                left: `${Math.random() * 100}vw`,
+                                animationDelay: `${Math.random() * 2}s`,
+                                color: randomColorHex
+                            }
+                        )
+                    }
+                }
+                return leapYears
+            },
+            numberCatch(year){
+                this.catchBox.push(year)
+                console.log(this.catchBox)
+            },
+            closeCatchBox(){
+                this.catchBox = []
+            }
+        }
+}).mount('#app')
+    </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Sofia&family=Staatliches&family=Titan+One&display=swap');
+a,
+button,
+h1 {
+    color: #4fc08d;
+}
+.year:hover {
+    cursor: pointer;
+}
+button {
+    background-color: #e7e7e7;
+    border: solid 1px;
+    border-radius: 2em;
+    font: inherit;
+    padding: 0.75em 2em;
+    position: relative;
+    font-family: 'Titan One', sans-serif;
+    /* color: white; */
+    font-size: 1.5em;
+    z-index: 4;
+    margin-bottom: .5rem;
+
+}
+button:hover {
+    background-color: #4fc08d;
+    color: white;
+    cursor: pointer;
+    border: none;
+}
+@keyframes fall {
+    from {transform: translateY(-100%)}
+    to {transform: translateY(100vh)}
+}
+.start {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    z-index: 2;
+    
+}
+
+.shaded-box {
+	position: absolute;
+	top: 2rem;
+	left: 38%;
+	width: 24vw;
+	height: 10vw;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+	z-index: 1;
+	bottom: 1em;
+	border-radius: 30px;
+}
+.leaf {
+    position: absolute;
+    top: 0;
+    animation: fall linear infinite;
+    animation-duration: var(--fall-duration, 10s);
+    animation-fill-mode: backwards;
+    z-index: 0;
+    font-family: 'Sofia', cursive;
+    font-size: 2em;
+    transition: all 0.5s ease;
+
+}
+h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 3em;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 3;
+}
+.catch-box {
+	position: fixed;
+	top: 50%;
+	left: 38%;
+	width: 25vw;
+	height: auto;
+	background-color: white;
+	z-index: 5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid #4fc08d;;
+	border-radius: 30px;
+}
+.yearDetails > span {
+    font-weight: bold;
+    font-family: 'Staatliches', sans-serif;
+}
+.yearDetails {
+    font-family: 'Staatliches', sans-serif;
+}
+.leaf:hover {
+    font-size: 4rem;
+    font-weight: bolder;
+    z-index: 6;
+    animation-play-state: paused; 
+}
+
+</style>
+</body>
+</html>
